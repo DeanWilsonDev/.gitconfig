@@ -1,0 +1,25 @@
+[init]
+	defaultBranch = main
+[user]
+	name = Dean Wilson
+	email = mail@deanwilson.dev
+[sequence]
+	editor = rebase-editor
+[core]
+	editor = nano
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[alias]
+	squash = "!f(){ git reset --soft HEAD~${1} && git commit --edit -m"$(git log --format=%B --reverse HEAD..HEAD@{1})"; };f"
+	psu = push -u origin HEAD
+	ll = log --oneline
+	cm = commit -m
+	s = status
+	ps = push
+	psf = push --force-with-lease
+	pl = pull
+	rom = "!f(){ git fetch && git rebase origin/main; };f"
+	cleanup = "!git branch --merged | grep  -v '\\*\\|main' | xargs -n 1 -r git branch -d"
